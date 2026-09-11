@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Check the Weather</h1>
+
+  
+        <p class="error">{{ error }}</p>
+    
+    <form method="POST" action="/">
+        <input type="text"name="city"placeholder="Enter city name"
+            value="{{ city or '' }}"
+            required
+        >
+
+        <div class="unit-select">
+            <label>
+                <input type="radio" name="unit" value="C" {% if unit != 'F' %}checked{% endif %}> °C
+            </label>
+            <label>
+                <input type="radio" name="unit" value="F" {% if unit == 'F' %}checked{% endif %}> °F
+            </label>
+        </div>
+
+        <button type="submit">Get Weather</button>
+    </form>
+     
+    {% if weather %}
+     <div class="result">
+        <h2>{{ weather.city }}</h2>
+        <p>{{ weather.temp }}" {{ unit }}</p>
+        <p>{{ weather.description }}</p>
+        </div>
+        {% endif %}
+</body>
+</html>
